@@ -4,7 +4,7 @@ from flask import jsonify, request
 from db import db
 from bid_items import BidItems, bid_item_schema, bid_items_schema
 
-# name, description, base_price, category_id, end_auction
+
 def add_bid_item(req:flask.Request) -> flask.Response:
     post_data = request.json
     name = post_data.get('name')
@@ -18,10 +18,10 @@ def add_bid_item(req:flask.Request) -> flask.Response:
     db.session.add(record)
     db.session.commit()
 
-    return jsonify(bid_item_schema.dump(record)), 201
+    return jsonify(bid_item_schema.dump(record)), 200
 
 
 def get_all_items(req:flask.Request):
     items = db.session.query(BidItems).all()
 
-    return jsonify(bid_items_schema.dump(items)), 201
+    return jsonify(bid_items_schema.dump(items)), 200

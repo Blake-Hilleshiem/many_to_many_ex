@@ -12,6 +12,8 @@ from bid_items import BidItems, BidItemsSchema, bid_item_schema, bid_items_schem
 from categories import Categories, CategoriesSchema, category_schema, categories_schema
 from controllers import user_controller, categories_controller, bid_items_controller
 
+from bids import Bids, BidsSchema
+
 
 import routes
 
@@ -27,11 +29,6 @@ def create_all():
       db.create_all()
       print('All done')
 
-# print(routes.users)
-# app.register_blueprint(routes.users)
-
-users = Blueprint('users', __name__)
-
 @app.route('/user/add', methods=['POST'])
 def add_user() -> Response:
     return user_controller.add_user(request)
@@ -40,10 +37,13 @@ def add_user() -> Response:
 def get_all_active_users() -> Response:
     return user_controller.get_all_active_users(request)
 
-
 @app.route('/category/add', methods=['POST'])
 def add_category() -> Response:
     return categories_controller.add_category(request)
+
+@app.route('/category/get-all', methods=['GET'])
+def get_all_categories() -> Response:
+    return categories_controller.get_all_categories(request)
 
 @app.route('/bid-item/add', methods=['POST'])
 def add_item() -> Response:
@@ -57,6 +57,20 @@ def update_user(user_id) -> Response:
 def get_all_items():
     return bid_items_controller.get_all_items(request)
 
+
+@app.route('/set-bid', methods = ['POST'])
+def set_bid():
+    post_data = request.json
+
+    user_id = post_data.get('user_id')
+    item_id = post_data.get('item_id')
+    bid_amount = post_data.get('bid_amount')
+    
+    record = Bids(user_id, item_id, bid_amount)
+    db.session.add(record)
+    db.session.commit()
+
+    return jsonify('added bid'), 200
 
 
 if __name__ == '__main__':

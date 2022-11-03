@@ -22,13 +22,13 @@ def add_user(req:flask.Request) -> flask.Response:
     db.session.add(record)
     db.session.commit()
 
-    return jsonify(user_schema.dump(record)), 201
+    return jsonify(user_schema.dump(record)), 200
 
 
 def get_all_active_users(req:flask.Request):
     all_users = db.session.query(Users).filter(Users.active == True).all()
 
-    return jsonify(users_schema.dump(all_users)), 201
+    return jsonify(users_schema.dump(all_users)), 200
 
 def update_user(req:flask.Request, user_id):
     post_data = request.json
@@ -45,7 +45,7 @@ def update_user(req:flask.Request, user_id):
     
     db.session.commit()
 
-    return jsonify(user_schema.dump(user_data)), 201
+    return jsonify(user_schema.dump(user_data)), 200
 
 
 
