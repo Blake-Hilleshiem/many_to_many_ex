@@ -3,8 +3,7 @@ from sqlalchemy.dialects.postgresql import UUID
 import marshmallow as ma
 
 from db import db
-from bids import BidsSchema
-from bid_items import BidItemsSchema
+from models.bids import BidsSchema
 
 class Users(db.Model):
     __tablename__='Users'
@@ -16,7 +15,7 @@ class Users(db.Model):
     password = db.Column(db.String())
     active = db.Column(db.Boolean(), default=True)
 
-    bid_info = db.relationship('Bids', back_populates='clients')
+    bid_info = db.relationship('Bids', back_populates='client')
  
 
     def __init__(self,first_name,last_name,phone,email,password, active):

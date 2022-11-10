@@ -2,7 +2,7 @@ import flask
 from flask import jsonify, request
 
 from db import db
-from bid_items import BidItems, bid_item_schema, bid_items_schema
+from models.bid_items import BidItems, bid_item_schema, bid_items_schema
 
 
 def add_bid_item(req:flask.Request) -> flask.Response:

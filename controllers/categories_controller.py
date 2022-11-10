@@ -2,7 +2,7 @@ import flask
 from flask import jsonify, request
 
 from db import db
-from categories import Categories, category_schema, categories_schema
+from models.categories import Categories, category_schema, categories_schema
 
 
 def add_category(req:flask.Request) -> flask.Response:

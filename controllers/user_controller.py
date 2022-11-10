@@ -3,8 +3,8 @@ from flask import jsonify, request
 from flask_bcrypt import generate_password_hash
 
 from db import db
-from users import Users, user_schema, users_schema
-from bid_items import BidItems
+from models.users import Users, user_schema, users_schema
+from models.bid_items import BidItems
 
 
 def add_user(req:flask.Request) -> flask.Response:

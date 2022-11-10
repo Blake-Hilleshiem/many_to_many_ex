@@ -10,8 +10,6 @@ class Categories(db.Model):
     name = db.Column(db.String())
     cat_descrip = db.Column(db.String())
 
-
-
     def __init__(self, name, cat_descrip):
         # self.category_id = category_id
         self.name = name
